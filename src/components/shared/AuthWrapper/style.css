@@ -1,0 +1,19 @@
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #4ccdef, #a5eaf8);
+}
+
+.form-container {
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  width: 40%;
+  padding: 12px;
+  background-color: #ffffff;
+}
+
+.btn-container * {
+  margin: 5px;
+}
