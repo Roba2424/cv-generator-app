@@ -2,6 +2,8 @@ import { Button, Flex, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
 import AuthWrapper from "../../../components/shared/AuthWrapper";
+import { ROUTE_CONSTANTS } from "../../../utils/constant";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [form] = useForm();
@@ -38,8 +40,8 @@ const Login = () => {
         >
           <Input.Password placeholder="password" />
         </Form.Item>
-        <Flex justify="end" align="center">
-          {/* <Link to={ROUTE_CONSTANTS.REGISTER}>Create Account</Link> */}
+        <Flex justify="end" align="center" className="btn-container">
+          <Link to={ROUTE_CONSTANTS.REGISTER}>Create Account</Link>
           <Button type="primary" htmlType="submit" loading={loading}>
             Sign in
           </Button>

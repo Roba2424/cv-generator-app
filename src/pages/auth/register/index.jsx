@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Flex, Form, Input } from "antd";
 import AuthWrapper from "../../../components/shared/AuthWrapper";
-import { regexpValidation } from "../../../utils/constant";
+import { regexpValidation, ROUTE_CONSTANTS } from "../../../utils/constant";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ const Register = () => {
           <Input.Password placeholder="Password" />
         </Form.Item>
         <Flex justify="end" align="center" className="btn-container">
-          <Button>Sign in</Button>
+          <Link to={ROUTE_CONSTANTS.LOGIN}>Sign in</Link>
           <Button
             type="default"
             htmlType="submit"

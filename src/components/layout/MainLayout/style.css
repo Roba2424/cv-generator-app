@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+  padding: 10px 15px;
+}
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+.left-side * {
+  margin: 0 5px;
+}
+
+.content {
+  padding: 20px;
+}
+.build-five {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.build-five img {
+  flex: 2;
+  width: 400px;
+}
