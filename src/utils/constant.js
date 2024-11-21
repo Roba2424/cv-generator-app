@@ -7,3 +7,8 @@ export const ROUTE_CONSTANTS = {
   REGISTER: "/register",
   PROFILE: "/profile",
 };
+
+//FIRESTORE PATH NAMES
+export const FIRESTORE_PATH_NAMES = {
+  REGISTERED_USERS: "registered-users",
+};
