@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+  padding: 0 15px;
+  height: 8vh;
+  align-items: center;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+.left-side * {
+  margin: 0 5px;
+}
