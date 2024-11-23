@@ -6,16 +6,17 @@ const Profile = () => {
   return (
     <div>
       <h1>Profile Page</h1>
-      {/* TODO My Resumes shoule go page my-resumes*/}
       <div>
         <h2>My Resumes</h2>
-        <Button>Resumes</Button>
+        <Button>
+          <Link to={ROUTE_CONSTANTS.RESUMES}>Resumes</Link>
+        </Button>
       </div>
 
       <div>
         <h2>Create Resume</h2>
         <Button>
-          <Link to={ROUTE_CONSTANTS.RESUMES}>Create Resume</Link>
+          <Link to={ROUTE_CONSTANTS.RESUME_BUILDER}>Create Resume</Link>
         </Button>
       </div>
     </div>

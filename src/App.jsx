@@ -11,13 +11,14 @@ import { ROUTE_CONSTANTS } from "./utils/constant";
 import { useEffect } from "react";
 import Login from "./pages/auth/login";
 import MainLayout from "./components/layout/MainLayout";
-import Resumes from "./pages/Resumes/index";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfileInfo } from "./state-management/slices/userProfile";
 import LoadingWrapper from "./components/shared/LoadingWrapper";
-import PersonalInfoForm from "./components/PersonalInfoForm";
-import SkillsForm from "./components/SkillsForm";
+import PersonalInfoForm from "./components/shared/PersonalInfoForm";
+import SkillsForm from "./components/shared/SkillsForm";
 import Profile from "./pages/Profile/index";
+import ResumeBuilder from "./pages/ResumeBuilder/index";
+import Resumes from "./pages/Resumes";
 
 function App() {
   const distpatch = useDispatch();
@@ -52,10 +53,11 @@ function App() {
                 }
               />
               <Route path={ROUTE_CONSTANTS.PROFILE} element={<Profile />} />
+              <Route path={ROUTE_CONSTANTS.RESUMES} element={<Resumes />} />
 
               <Route
-                path={ROUTE_CONSTANTS.RESUMES}
-                element={isAuth ? <Resumes /> : <Register />}
+                path={ROUTE_CONSTANTS.RESUME_BUILDER}
+                element={isAuth ? <ResumeBuilder /> : <Register />}
               >
                 <Route
                   path={ROUTE_CONSTANTS.PERSONAL_INFO}

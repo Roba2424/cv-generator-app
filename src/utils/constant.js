@@ -7,8 +7,9 @@ export const ROUTE_CONSTANTS = {
   REGISTER: "/register",
   PROFILE: "/profile",
   RESUMES: "/resumes",
-  PERSONAL_INFO: `resumes/personal-info`,
-  SKILLS: `resumes/skills`,
+  RESUME_BUILDER: "/resume-builder",
+  PERSONAL_INFO: "personal-info",
+  SKILLS: "skills",
 };
 
 //FIRESTORE PATH NAMES
