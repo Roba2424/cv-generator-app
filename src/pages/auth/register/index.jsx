@@ -103,12 +103,7 @@ const Register = () => {
         </Form.Item>
         <Flex justify="end" align="center" className="btn-container">
           <Link to={ROUTE_CONSTANTS.LOGIN}>Sign in</Link>
-          <Button
-            type="default"
-            htmlType="submit"
-            loading={loading}
-            style={{ backgroundColor: "#A5EAF8" }}
-          >
+          <Button type="primary" htmlType="submit" loading={loading}>
             Register
           </Button>
         </Flex>

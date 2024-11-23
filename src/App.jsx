@@ -11,10 +11,13 @@ import { ROUTE_CONSTANTS } from "./utils/constant";
 import { useEffect } from "react";
 import Login from "./pages/auth/login";
 import MainLayout from "./components/layout/MainLayout";
-import Profile from "./pages/Profile";
+import Resumes from "./pages/Resumes/index";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfileInfo } from "./state-management/slices/userProfile";
 import LoadingWrapper from "./components/shared/LoadingWrapper";
+import PersonalInfoForm from "./components/PersonalInfoForm";
+import SkillsForm from "./components/SkillsForm";
+import Profile from "./pages/Profile/index";
 
 function App() {
   const distpatch = useDispatch();
@@ -24,14 +27,11 @@ function App() {
   } = useSelector((store) => store.userProfile);
   useEffect(() => {
     distpatch(fetchUserProfileInfo());
-  }, []);
+  }, [distpatch]);
 
   return (
     <LoadingWrapper loading={loading}>
       <RouterProvider
-        future={{
-          v7_startTransition: true,
-        }}
         router={createBrowserRouter(
           createRoutesFromElements(
             <Route path="/" element={<MainLayout />}>
@@ -51,10 +51,18 @@ function App() {
                   )
                 }
               />
+              <Route path={ROUTE_CONSTANTS.PROFILE} element={<Profile />} />
+
               <Route
-                path={ROUTE_CONSTANTS.PROFILE}
-                element={isAuth ? <Profile /> : <Register />}
-              />
+                path={ROUTE_CONSTANTS.RESUMES}
+                element={isAuth ? <Resumes /> : <Register />}
+              >
+                <Route
+                  path={ROUTE_CONSTANTS.PERSONAL_INFO}
+                  element={<PersonalInfoForm />}
+                />
+                <Route path={ROUTE_CONSTANTS.SKILLS} element={<SkillsForm />} />
+              </Route>
             </Route>
           )
         )}

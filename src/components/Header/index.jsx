@@ -21,11 +21,8 @@ const Header = () => {
           <div>{userData.firstName}</div>
         ) : (
           <div className="btn-container">
-            <Button style={{ backgroundColor: "#4ccdef", border: "#4ccdef" }}>
-              <Link to={ROUTE_CONSTANTS.REGISTER}>Register</Link>
-            </Button>
             <Button>
-              <Link to={ROUTE_CONSTANTS.LOGIN}>Login</Link>
+              <Link to={ROUTE_CONSTANTS.LOGIN}>Sign In</Link>
             </Button>
           </div>
         )}

@@ -6,6 +6,9 @@ export const ROUTE_CONSTANTS = {
   LOGIN: "/login",
   REGISTER: "/register",
   PROFILE: "/profile",
+  RESUMES: "/resumes",
+  PERSONAL_INFO: `resumes/personal-info`,
+  SKILLS: `resumes/skills`,
 };
 
 //FIRESTORE PATH NAMES
