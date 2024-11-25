@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./style.css";
 import { PROFICIENCY_LEVEL } from "../../utils/constant";
-import { Space } from "antd";
+import DownloadResumeButton from "../../components/shared/DowloadPdf";
 
 const CVTemplate = () => {
   const { name, email, phone, pitch } = useSelector(
@@ -50,6 +50,7 @@ const CVTemplate = () => {
           return <div key={index}>{`${language} : ${langLevel}`}</div>;
         })}
       </section>
+      <DownloadResumeButton/>
     </div>
   );
 };

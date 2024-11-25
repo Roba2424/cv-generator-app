@@ -20,6 +20,7 @@ export const ROUTE_CONSTANTS = {
 //FIRESTORE PATH NAMES
 export const FIRESTORE_PATH_NAMES = {
   REGISTERED_USERS: "registered-users",
+  USERS_RESUMES: "users-resume",
 };
 
 //LANGUAGE PROFICIENCY LEVEL

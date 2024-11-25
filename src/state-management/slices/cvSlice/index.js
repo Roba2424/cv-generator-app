@@ -7,7 +7,6 @@ const initialState = {
     phone: "",
     pitch: "",
   },
-  education: [],
   socialLinks: {
     github: "",
     linkedin: "",
@@ -15,6 +14,7 @@ const initialState = {
   },
   languages: [],
   skills: [],
+  myResumes: [],
 };
 
 const cvSlice = createSlice({
@@ -35,12 +35,6 @@ const cvSlice = createSlice({
     updateSocialLinks: (state, action) => {
       state.socialLinks = { ...state.socialLinks, ...action.payload };
     },
-    addEducation: (state, action) => {
-      state.education.push(action.payload);
-    },
-    addExperience: (state, action) => {
-      state.experience.push(action.payload);
-    },
     addSkill: (state, action) => {
       state.skills.push(action.payload);
     },
@@ -49,19 +43,23 @@ const cvSlice = createSlice({
         (_, index) => index !== action.payload
       );
     },
+    addMyResumes: (state, action) => {
+      state.myResumes.push(action.payload);
+    },
+    resetForm: () => initialState,
   },
 });
 
 export const {
   updatePersonalInfo,
-  addEducation,
-  addExperience,
   addSkill,
   removeSkill,
   addLanguages,
   removeLanguage,
   addSocialLink,
   updateSocialLinks,
+  resetForm,
+  addMyResumes,
 } = cvSlice.actions;
 
 export default cvSlice.reducer;
