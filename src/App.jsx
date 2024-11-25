@@ -19,6 +19,9 @@ import SkillsForm from "./components/shared/SkillsForm";
 import Profile from "./pages/Profile/index";
 import ResumeBuilder from "./pages/ResumeBuilder/index";
 import Resumes from "./pages/Resumes";
+import Preview from "./pages/Preview";
+import SocialLinksForm from "./components/shared/SocialLinkForm";
+import LanguagesForm from "./components/shared/LanguagesForm";
 
 function App() {
   const distpatch = useDispatch();
@@ -64,6 +67,12 @@ function App() {
                   element={<PersonalInfoForm />}
                 />
                 <Route path={ROUTE_CONSTANTS.SKILLS} element={<SkillsForm />} />
+                <Route
+                  path={ROUTE_CONSTANTS.SOCIAL}
+                  element={<SocialLinksForm />}
+                />
+                <Route path={ROUTE_CONSTANTS.PREVIEW} element={<Preview />} />
+                <Route path={ROUTE_CONSTANTS.LANGUAGE} element={<LanguagesForm />} />
               </Route>
             </Route>
           )

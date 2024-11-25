@@ -1,11 +1,19 @@
 import React from "react";
-import {  useSelector } from "react-redux";
-import { Button, Form, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Form, Input, notification } from "antd";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../utils/constant";
+import { updatePersonalInfo } from "../../../state-management/slices/cvSlice";
 
 const PersonalInfoForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const personalInfo = useSelector((state) => state.cv.personalInfo);
+
   const handleFinish = (values) => {
-    console.log(values)
+    dispatch(updatePersonalInfo(values));
+    navigate(ROUTE_CONSTANTS.SKILLS);
+    notification.success({ message: "Personal information saved." });
   };
 
   return (
@@ -41,6 +49,16 @@ const PersonalInfoForm = () => {
           ]}
         >
           <Input placeholder="Enter your phone number" />
+        </Form.Item>
+        <Form.Item
+          label="Pitch"
+          name="pitch"
+          rules={[{ required: true, message: "Please enter a short pitch" }]}
+        >
+          <Input.TextArea
+            placeholder="Enter a short and engaging pitch about yourself"
+            rows={4}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
