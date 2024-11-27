@@ -1,0 +1,16 @@
+.resume-page-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 87vh;
+  margin: 20px auto;
+}
+
+.resume-page-title {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.list-resume-container {
+  padding: 0 20px;
+}
