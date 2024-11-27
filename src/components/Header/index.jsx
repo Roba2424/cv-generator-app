@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 import resumeIcon from "../../utils/images/resume_icon.svg";
 import { ROUTE_CONSTANTS } from "../../utils/constant";
 import "./style.css";
+import AuthProfileDropDown from "../shared/AuthProfileDropDown";
 
 const Header = () => {
   const {
-    authUserInfo: { isAuth, userData },
+    authUserInfo: { isAuth },
   } = useSelector((store) => store.userProfile);
 
   return (
@@ -18,7 +19,7 @@ const Header = () => {
       </div>
       <div>
         {isAuth ? (
-          <div>{userData.firstName}</div>
+          <AuthProfileDropDown />
         ) : (
           <div className="btn-container">
             <Button>
