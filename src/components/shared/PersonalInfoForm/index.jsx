@@ -53,7 +53,7 @@ const PersonalInfoForm = () => {
         <Form.Item
           label="Pitch"
           name="pitch"
-          rules={[{ required: true, message: "Please enter a short pitch" }]}
+          rules={[{ message: "Please enter a short pitch" }]}
         >
           <Input.TextArea
             placeholder="Enter a short and engaging pitch about yourself"

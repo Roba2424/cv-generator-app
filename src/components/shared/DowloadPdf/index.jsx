@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { jsPDF } from "jspdf";
 import {
-  FIRESTORE_PATH_NAMES,
   PROFICIENCY_LEVEL,
+  REALTIME_PATH_NAMES,
   ROUTE_CONSTANTS,
 } from "../../../utils/constant";
 import { Button, notification } from "antd";
@@ -12,36 +12,39 @@ import {
   addMyResumes,
   resetForm,
 } from "../../../state-management/slices/cvSlice";
-import { auth, db } from "../../../service/index";
-import { doc, setDoc } from "@firebase/firestore";
+import { auth, realTimedb } from "../../../service/index";
+import { push, ref, set } from "firebase/database";
 
 const ExportPDF = () => {
   const { personalInfo, skills, languages, socialLinks, myResumes } =
     useSelector((state) => state.cv);
-  const resume = useSelector((state) => state.cv);
+  const resume = { personalInfo, skills, languages, socialLinks };
   const { authUserInfo } = useSelector((state) => state.userProfile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const saveInFirestore = async () => {
-    if (!auth.currentUser) {
-      console.error("No authenticated user");
-      return;
-    }
-    const userId = auth.currentUser.uid;
+  const saveInRealTimeDB = async () => {
+    const userId = auth.currentUser?.uid;
+    if (userId) {
+      const resumeRef = push(
+        ref(realTimedb, `${REALTIME_PATH_NAMES.RESUMES}/${userId}`)
+      );
+      const resumeId = resumeRef.key;
 
-    const docRef = doc(db, FIRESTORE_PATH_NAMES.USERS_RESUMES, userId);
-    try {
-      await setDoc(docRef, {
+      const resumeData = {
         personalInfo,
-        skills,
         socialLinks,
+        skills,
         languages,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
+      };
+
+      await set(resumeRef, resumeData);
+      notification.success({ message: "Resume saved successfully!" });
+    } else {
+      notification.info({
+        message: "User is not logged in. Unable to save resume.",
       });
-      notification.success({ message: "CV saved successfully!" });
-    } catch (error) {
-      console.error("Error saving CV:", error);
     }
   };
 
@@ -97,10 +100,10 @@ const ExportPDF = () => {
     }
 
     doc.save("CV.pdf");
-    navigate(ROUTE_CONSTANTS.PROFILE);
-    dispatch(addMyResumes(resume));//TODO
-    saveInFirestore();
+    dispatch(addMyResumes(resume)); //TODO
+    saveInRealTimeDB();
     dispatch(resetForm());
+    navigate(ROUTE_CONSTANTS.PROFILE);
   };
 
   return (
