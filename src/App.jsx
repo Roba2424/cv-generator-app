@@ -55,8 +55,14 @@ function App() {
                   )
                 }
               />
-              <Route path={ROUTE_CONSTANTS.PROFILE} element={<Profile />} />
-              <Route path={ROUTE_CONSTANTS.RESUMES} element={<Resumes />} />
+              <Route
+                path={ROUTE_CONSTANTS.PROFILE}
+                element={isAuth ? <Profile /> : <Login />}
+              />
+              <Route
+                path={ROUTE_CONSTANTS.RESUMES}
+                element={isAuth ? <Resumes /> : <Login />}
+              />
 
               <Route
                 path={ROUTE_CONSTANTS.RESUME_BUILDER}
@@ -71,8 +77,14 @@ function App() {
                   path={ROUTE_CONSTANTS.SOCIAL}
                   element={<SocialLinksForm />}
                 />
-                <Route path={ROUTE_CONSTANTS.PREVIEW} element={<Preview />} />
-                <Route path={ROUTE_CONSTANTS.LANGUAGE} element={<LanguagesForm />} />
+                <Route
+                  path={ROUTE_CONSTANTS.PREVIEW}
+                  element={isAuth ? <Preview /> : <Register />}
+                />
+                <Route
+                  path={ROUTE_CONSTANTS.LANGUAGE}
+                  element={isAuth ? <LanguagesForm /> : <Register />}
+                />
               </Route>
             </Route>
           )

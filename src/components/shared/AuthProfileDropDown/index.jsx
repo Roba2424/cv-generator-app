@@ -26,6 +26,7 @@ const AuthProfileDropDown = () => {
     try {
       await signOut(auth);
       dispatch(setIsAuth(false));
+      navigate(ROUTE_CONSTANTS.LOGIN)
     } catch (error) {}
   };
 
