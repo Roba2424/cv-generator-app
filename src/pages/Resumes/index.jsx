@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { List, Card, Spin, notification } from "antd";
+import { List, Card, Spin, notification, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { fetchMyResumes } from "../../state-management/slices/cvSlice";
 import { ROUTE_CONSTANTS } from "../../utils/constant";
+
+const { Title } = Typography;
 
 const MyResumes = () => {
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const MyResumes = () => {
   }
 
   const resumeKeys = Object.keys(myResumes);
-  console.log(myResumes)
+  console.log(myResumes);
 
   const handleResumeClick = (resumeId) => {
     navigate(ROUTE_CONSTANTS.PREVIEW.replace(":resumeId", resumeId), {
@@ -40,8 +42,8 @@ const MyResumes = () => {
   };
 
   return (
-    <div>
-      <h2>My Resumes</h2>
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <Title level={2}>My Resumes</Title>
       {resumeKeys.length === 0 ? (
         <p>No resumes found.</p>
       ) : (
