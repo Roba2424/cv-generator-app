@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { REALTIME_PATH_NAMES } from "../../../utils/constant";
+import { get, ref } from "firebase/database";
+import { auth, realTimedb } from "../../../service";
 
 const initialState = {
+  loading: false,
   personalInfo: {
     name: "",
     email: "",
@@ -14,8 +18,34 @@ const initialState = {
   },
   languages: [],
   skills: [],
-  myResumes: [],
+  myResumes: {},
 };
+
+export const fetchMyResumes = createAsyncThunk(
+  "cv/fetchMyResumes",
+  async (_, { rejectWithValue }) => {
+    try {
+      const userId = auth.currentUser?.uid;
+      if (!userId) {
+        throw new Error("User is not logged in");
+      }
+
+      const resumesRef = ref(
+        realTimedb,
+        `${REALTIME_PATH_NAMES.RESUMES}/${userId}`
+      );
+      const snapshot = await get(resumesRef);
+
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        return {};
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const cvSlice = createSlice({
   name: "cv",
@@ -48,6 +78,21 @@ const cvSlice = createSlice({
     },
     resetForm: () => initialState,
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMyResumes.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchMyResumes.fulfilled, (state, action) => {
+        state.myResumes = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchMyResumes.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
 export const {
@@ -60,6 +105,7 @@ export const {
   updateSocialLinks,
   resetForm,
   addMyResumes,
+
 } = cvSlice.actions;
 
 export default cvSlice.reducer;

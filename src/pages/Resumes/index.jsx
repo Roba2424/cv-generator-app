@@ -1,58 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { List, Card, Spin, notification } from "antd";
-import { fetchResumesFromDB } from "../../utils/functions/fetchResumesFromDB";
-import "./style.css";
+import { useNavigate } from "react-router-dom";
+import { fetchMyResumes } from "../../state-management/slices/cvSlice";
+import { ROUTE_CONSTANTS } from "../../utils/constant";
 
-const Resumes = () => {
-  const [loading, setLoading] = useState(true);
-  const [resumes, setResumes] = useState({});
+const MyResumes = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { myResumes, loading, error } = useSelector((state) => state.cv);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchResumesFromDB();
-        setResumes(data);
-      } catch (error) {
-        notification.error({
-          message: "Error Fetching Resumes",
-          description: error.message,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+    dispatch(fetchMyResumes());
+  }, [dispatch]);
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    if (error) {
+      notification.error({
+        message: "Error Fetching Resumes",
+        description: error,
+      });
+    }
+  }, [error]);
 
   if (loading) {
-    return <Spin className="resume-page-spinner" size="large" />;
+    return (
+      <Spin size="large" style={{ margin: "20px auto", display: "block" }} />
+    );
   }
 
-  const resumeKeys = Object.keys(resumes);
+  const resumeKeys = Object.keys(myResumes);
+  console.log(myResumes)
+
+  const handleResumeClick = (resumeId) => {
+    navigate(ROUTE_CONSTANTS.PREVIEW.replace(":resumeId", resumeId), {
+      state: { resume: myResumes[resumeId] },
+    });
+  };
 
   return (
     <div>
-      <h2 className="resume-page-title">My Resumes</h2>
+      <h2>My Resumes</h2>
       {resumeKeys.length === 0 ? (
         <p>No resumes found.</p>
       ) : (
         <List
-          className="list-resume-container"
           grid={{ gutter: 16, column: 3 }}
           dataSource={resumeKeys}
           renderItem={(resumeId) => (
             <List.Item>
               <Card
-                title={resumes[resumeId].personalInfo.name || "Unnamed Resume"}
+                title={
+                  myResumes[resumeId].personalInfo.name || "Unnamed Resume"
+                }
+                onClick={() => handleResumeClick(resumeId)}
+                style={{ cursor: "pointer" }}
               >
                 <p>
-                  <strong>Email: </strong>
-                  {resumes[resumeId].personalInfo.email || "N/A"}
+                  <strong>Email:</strong>{" "}
+                  {myResumes[resumeId].personalInfo.email || "N/A"}
                 </p>
                 <p>
-                  <strong>Created At: </strong>
-                  {new Date(resumes[resumeId].createdAt).toLocaleString()}
+                  <strong>Created At:</strong>{" "}
+                  {new Date(myResumes[resumeId].createdAt).toLocaleString()}
                 </p>
               </Card>
             </List.Item>
@@ -63,4 +74,4 @@ const Resumes = () => {
   );
 };
 
-export default Resumes;
+export default MyResumes;

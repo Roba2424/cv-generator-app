@@ -10,7 +10,7 @@ const CVTemplate = () => {
   );
 
   const { skills, languages, socialLinks } = useSelector((state) => state.cv);
-
+  const resume = { skills, languages, socialLinks };
   return (
     <div className="cv-template" id="cv-template">
       <h1>Personal Information</h1>
@@ -50,7 +50,7 @@ const CVTemplate = () => {
           return <div key={index}>{`${language} : ${langLevel}`}</div>;
         })}
       </section>
-      <DownloadResumeButton/>
+      <DownloadResumeButton />
     </div>
   );
 };

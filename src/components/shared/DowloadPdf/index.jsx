@@ -100,7 +100,6 @@ const ExportPDF = () => {
     }
 
     doc.save("CV.pdf");
-    dispatch(addMyResumes(resume)); //TODO
     saveInRealTimeDB();
     dispatch(resetForm());
     navigate(ROUTE_CONSTANTS.PROFILE);
